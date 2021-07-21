@@ -1,6 +1,6 @@
 # base64to
 
-This library provides replacement functions to `btoa()` and `atob()`, that work faster for large input strings in the current virtual machine version, that i used in the time of writing this document (v8 9.1.269.35, Deno 1.11.5, Chrome 91.0.4472.114).
+This library provides replacement functions to `btoa()` and `atob()`, that work faster for large input strings in the current virtual machine version, that i used at the time of writing this document (v8 9.1.269.35, Deno 1.11.5, Chrome 91.0.4472.114).
 
 Bonus features:
 
@@ -58,10 +58,10 @@ The most common use is:
 
 Basicly, these 4 functions allow to base64-encode and base64-decode `string|Uint8Array` <-> `string|Uint8Array` in all directions.
 
-Functions that return `Uint8Array` by default create a new `Uint8Array` buffer for the result.
+Functions that return `Uint8Array` by default create new `Uint8Array` buffers for the result.
 But they also can receive an existing buffer (through the argument called `into`), and if the provided object is big enough, it will be used for the result.
 In this case these functions return the `into` object.
-If `into` was not big enough for the result, a new object will be created and returned.
+If `into` was not big enough for the result, a new object is created and returned.
 
 It's possible to pass the same object to both `data` (`ascii`) and `into`, or they can be subarrays of the same underlying buffer.
 In this case the base64 encoding/decoding will occure inplace, overwriting the original data.
@@ -106,7 +106,7 @@ encode64Reader(reader: Deno.Reader, cPlus='+', cSlash='/', padding='='): Deno.Re
 decode64Reader(reader: Deno.Reader, cPlus='+', cSlash='/'): Deno.Reader
 ```
 
-The following example base64-encodes the `/etc/passwd` file, and prints to the `Deno.stdout`:
+The following example base64-encodes your `/etc/passwd` file, and prints it to the `Deno.stdout`:
 
 ```ts
 import {encode64Reader} from './mod.ts';
@@ -128,7 +128,7 @@ fh.close();
 
 ## Performance compared to `btoa()` and `atob()`
 
-The benchmark code can be found in this file: `tests/performance.test.ts`.
+The benchmark code can be found in this file: [tests/performance.test.ts](https://github.com/jeremiah-shaulov/base64to/blob/main/tests/performance.test.ts).
 
 In brief, the functions that this library provides are slower than the navive functions, when operating on 16-byte data samples.
 
