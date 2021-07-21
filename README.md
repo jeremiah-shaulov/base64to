@@ -29,7 +29,7 @@ decode64ToString(ascii: string|Uint8Array, cPlus='+', cSlash='/'): string
 Example:
 
 ```ts
-import {encode64, decode64ToString} from './mod.ts';
+import {encode64, decode64ToString} from 'https://deno.land/x/base64to@v0.0.2/mod.ts';
 
 console.log(btoa('Data string'));     // prints: RGF0YSBzdHJpbmc=
 console.log(encode64('Data string')); // prints: RGF0YSBzdHJpbmc=
@@ -69,7 +69,7 @@ In this case the base64 encoding/decoding will occure inplace, overwriting the o
 Because decoding process produces shorter result (each 4 input bytes are converted to 3 output bytes), for `decode64(ascii, into)` the `ascii` and the `into` can be the same object.
 
 ```ts
-import {decode64} from './mod.ts';
+import {decode64} from 'https://deno.land/x/base64to@v0.0.2/mod.ts';
 
 let encoded = new TextEncoder().encode('RGF0YSBzdHJpbmc=');
 
@@ -83,7 +83,7 @@ console.log(String.fromCharCode(...decoded));     // prints: Data string
 For `encode64ToBytes(data, into)` you need to care, that the `into` object is at least `Math.ceil(data.length * 4/3) + 2` long (there can be up to 2 padding characters) for inplace encoding.
 
 ```ts
-import {encode64ToBytes} from './mod.ts';
+import {encode64ToBytes} from 'https://deno.land/x/base64to@v0.0.2/mod.ts';
 
 let data = new TextEncoder().encode('Data string');
 
@@ -109,7 +109,7 @@ decode64Reader(reader: Deno.Reader, cPlus='+', cSlash='/'): Deno.Reader
 The following example base64-encodes your `/etc/passwd` file, and prints it to the `Deno.stdout`:
 
 ```ts
-import {encode64Reader} from './mod.ts';
+import {encode64Reader} from 'https://deno.land/x/base64to@v0.0.2/mod.ts';
 
 let fh = await Deno.open('/etc/passwd');
 await Deno.copy(encode64Reader(fh), Deno.stdout);
@@ -119,7 +119,7 @@ fh.close();
 The following example chains `/etc/passwd` -> `encode64Reader` -> `decode64Reader` -> `Deno.stdout`.
 
 ```ts
-import {encode64Reader, decode64Reader} from './mod.ts';
+import {encode64Reader, decode64Reader} from 'https://deno.land/x/base64to@v0.0.2/mod.ts';
 
 let fh = await Deno.open('/etc/passwd');
 await Deno.copy(decode64Reader(encode64Reader(fh)), Deno.stdout);
