@@ -1,6 +1,7 @@
 import {get_cached_abc} from './abc.ts';
 
-const decoder_16 = new TextDecoder('utf-16');
+const is_big_endian = new Uint8Array(new Uint16Array([1]).buffer)[0] == 0;
+const decoder_16 = new TextDecoder(is_big_endian ? 'utf-16be' : 'utf-16');
 
 function do_decode_64(ascii: string|Uint8Array, len: number, result: Uint8Array|Uint16Array, abc: Uint8Array)
 {	let i = 0;
