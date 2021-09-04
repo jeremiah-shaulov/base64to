@@ -110,9 +110,10 @@ The following example base64-encodes your `/etc/passwd` file, and prints it to t
 
 ```ts
 import {encode64Reader} from 'https://deno.land/x/base64to@v0.0.2/mod.ts';
+import {copy} from 'https://deno.land/std@0.106.0/io/util.ts';
 
 let fh = await Deno.open('/etc/passwd');
-await Deno.copy(encode64Reader(fh), Deno.stdout);
+await copy(encode64Reader(fh), Deno.stdout);
 fh.close();
 ```
 
@@ -120,9 +121,10 @@ The following example chains `/etc/passwd` -> `encode64Reader` -> `decode64Reade
 
 ```ts
 import {encode64Reader, decode64Reader} from 'https://deno.land/x/base64to@v0.0.2/mod.ts';
+import {copy} from 'https://deno.land/std@0.106.0/io/util.ts';
 
 let fh = await Deno.open('/etc/passwd');
-await Deno.copy(decode64Reader(encode64Reader(fh)), Deno.stdout);
+await copy(decode64Reader(encode64Reader(fh)), Deno.stdout);
 fh.close();
 ```
 
